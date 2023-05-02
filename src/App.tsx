@@ -14,8 +14,8 @@ function App() {
             <Navigation />
             <Routes>
               <Route path="/" element={<Home />} />
-              <Route path="/about" element={<Charts />} />
-              <Route path="/contact" element={<Settings />} />
+              <Route path="/charts" element={<Charts />} />
+              <Route path="/settings" element={<Settings />} />
             </Routes>
           </div>
         </BrowserRouter>
