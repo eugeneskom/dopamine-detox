@@ -6,7 +6,7 @@ import styled from "styled-components";
 
 interface NavItemProps extends NavLinkProps {
   label: React.ReactNode;
-  exact?: boolean;
+  exact?: string;
 }
 
 const StyledNavLink = styled(NavLink)`
@@ -53,7 +53,7 @@ function Navigation() {
   return (
     <nav>
       <ul>
-        <NavItem exact to="/" label={<HomeIcon/>} />
+        <NavItem exact="true" to="/" label={<HomeIcon/>} />
         <NavItem to="/charts" label={<BarChartIcon/>} />
         <NavItem to="/settings" label={<SettingsIcon/>} />
       </ul>
