@@ -2,8 +2,7 @@ import { useState } from "react";
 import AddIcon from "@mui/icons-material/Add";
 import styled from "styled-components";
 import Category from "../Category";
-import {CategoryInt} from '../../types/types'
-
+import { CategoryInt } from "../../types/types";
 
 interface HomeProps {
   categories: CategoryInt[];
@@ -25,25 +24,34 @@ const CategoryWrapper = styled.div`
   flex-wrap: wrap;
   justify-content: space-between;
   max-height: 300px;
-  overflow:auto;
+  overflow: auto;
 `;
 
 function Home({ categories }: HomeProps) {
   const [showCategories, setShowCategories] = useState(false);
+  const [isActiveCat, setIsActiveCat] = useState("");
 
   const toggleCategories = () => {
     setShowCategories(!showCategories);
   };
 
+  const handleActiveCategory = (name: string): void => {
+    setIsActiveCat(name);
+    console.log(name)
+  };
+
   return (
     <div>
       <FlexWrapper>
-        <AddCategory onClick={toggleCategories}/>
+        <AddCategory onClick={toggleCategories} />
       </FlexWrapper>
       {showCategories ? (
         <CategoryWrapper>
           {categories?.map((category) => (
-            <Category category={category}/>
+            <Category category={category} 
+            active={isActiveCat === category.name}
+            onClick={()=> handleActiveCategory(category.name)}
+            />
           ))}
         </CategoryWrapper>
       ) : (
