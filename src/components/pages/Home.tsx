@@ -4,7 +4,6 @@ import styled from "styled-components";
 import Category from "../Category";
 import { CategoryInt } from "../../types/types";
 
-
 interface HomeProps {
   categories: CategoryInt[];
 }
@@ -30,15 +29,15 @@ const CategoryWrapper = styled.div`
 
 function Home({ categories }: HomeProps) {
   const [showCategories, setShowCategories] = useState(false);
-  const [isActiveCat, setIsActiveCat] = useState("");
+  const [activeCategory, setActiveCategory] = useState(categories[0]?.name);
 
   const toggleCategories = () => {
     setShowCategories(!showCategories);
   };
 
   const handleActiveCategory = (name: string): void => {
-    setIsActiveCat(name);
-    console.log(name)
+    setActiveCategory(name);
+    console.log(name);
   };
 
   return (
@@ -47,14 +46,15 @@ function Home({ categories }: HomeProps) {
         <AddCategory onClick={toggleCategories} />
       </FlexWrapper>
       {showCategories ? (
-        <CategoryWrapper>
-          {categories?.map((category) => (
-            <Category category={category} 
-            active={isActiveCat === category.name}
-            onClick={()=> handleActiveCategory(category.name)}
-            />
-          ))}
-        </CategoryWrapper>
+        <>
+          <div>{activeCategory}</div>
+          <h2>Select category({`${categories.length}`})</h2>
+          <CategoryWrapper>
+            {categories?.map((category) => (
+              <Category category={category} active={activeCategory === category.name} onClick={() => handleActiveCategory(category.name)} />
+            ))}
+          </CategoryWrapper>
+        </>
       ) : (
         ""
       )}
