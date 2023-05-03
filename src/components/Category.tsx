@@ -8,17 +8,17 @@ interface CategoryProps {
 
 const Item = styled.div`
   width: calc(33.33% - 10px);
-    margin-bottom: 10px;
-    background-color: #ccc;
-`
+  margin-bottom: 10px;
+  background-color: #ccc;
+`;
 
 const Title = styled.h2`
   font-size: 16px;
-`
+`;
 
-function Category({ category: { name, image } }: CategoryProps) {
+function Category({ category: { name, image, id } }: CategoryProps) {
   return (
-    <Item>
+    <Item key={id}>
       <Title>{name}</Title>
       <img src={image} alt="" />
     </Item>
