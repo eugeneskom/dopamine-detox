@@ -4,6 +4,7 @@ import styled from "styled-components";
 import Category from "../Category";
 import { CategoryInt } from "../../types/types";
 
+
 interface HomeProps {
   categories: CategoryInt[];
 }
