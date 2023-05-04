@@ -1,4 +1,4 @@
-import { NavLink, NavLinkProps} from "react-router-dom";
+import { NavLink, NavLinkProps, useLocation} from "react-router-dom";
 import HomeIcon from '@mui/icons-material/Home';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import SettingsIcon from '@mui/icons-material/Settings';
@@ -50,14 +50,17 @@ export function NavItem({ label, ...props }: NavItemProps) {
 
 
 function Navigation() {
+  const location = useLocation();
   return (
-    <nav>
-      <ul>
-        <NavItem exact="true" to="/" label={<HomeIcon/>} />
-        <NavItem to="/charts" label={<BarChartIcon/>} />
-        <NavItem to="/settings" label={<SettingsIcon/>} />
-      </ul>
-    </nav>
+    <>{location.pathname !== '/addictions' ? (
+      <nav>
+        <ul>
+          <NavItem exact="true" to="/" label={<HomeIcon />} />
+          <NavItem to="/charts" label={<BarChartIcon />} />
+          <NavItem to="/settings" label={<SettingsIcon />} />
+        </ul>
+      </nav>
+    ) : ""}</>
   );
 }
 

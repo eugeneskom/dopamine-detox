@@ -21,7 +21,6 @@ const Container = styled.div`
 `;
 
 function App() {
-
   return (
     <div className="App">
       <BrowserRouter>
@@ -33,6 +32,7 @@ function App() {
             <Route path="/addictions" element={<Addictions />} />
           </Routes>
           <Navigation />
+          
         </Container>
       </BrowserRouter>
     </div>
