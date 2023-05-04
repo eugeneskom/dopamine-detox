@@ -6,6 +6,7 @@ import Settings from "./components/pages/Settings";
 import Navigation from "./components/Navigation";
 import styled from "@emotion/styled";
 import categories from "./libs/categories";
+import Addictions from "./components/pages/Addictions";
 
 const Container = styled.div`
   padding-top: 50px;
@@ -16,9 +17,11 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: space-between;
+  background-color: #fff;
 `;
 
 function App() {
+
   return (
     <div className="App">
       <BrowserRouter>
@@ -27,6 +30,7 @@ function App() {
             <Route path="/" element={<Home categories={categories} />} />
             <Route path="/charts" element={<Charts />} />
             <Route path="/settings" element={<Settings />} />
+            <Route path="/addictions" element={<Addictions />} />
           </Routes>
           <Navigation />
         </Container>

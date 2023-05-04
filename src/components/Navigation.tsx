@@ -1,15 +1,15 @@
-import { NavLink, NavLinkProps } from "react-router-dom";
+import { NavLink, NavLinkProps} from "react-router-dom";
 import HomeIcon from '@mui/icons-material/Home';
 import BarChartIcon from '@mui/icons-material/BarChart';
 import SettingsIcon from '@mui/icons-material/Settings';
 import styled from "styled-components";
 
-interface NavItemProps extends NavLinkProps {
+export interface NavItemProps extends NavLinkProps {
   label: React.ReactNode;
   exact?: string;
 }
 
-const StyledNavLink = styled(NavLink)`
+export const StyledNavLink = styled(NavLink)`
   text-decoration: none;
   color: #333;
   padding: 10px;
@@ -31,12 +31,12 @@ const StyledNavLink = styled(NavLink)`
   }
 `;
 
-const NavItemWrapper = styled.li`
+export const NavItemWrapper = styled.li`
   display: inline-block;
   margin-right: 10px;
 `;
 
-function NavItem({ label, ...props }: NavItemProps) {
+export function NavItem({ label, ...props }: NavItemProps) {
   return (
     <NavItemWrapper>
       <StyledNavLink

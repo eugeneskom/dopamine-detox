@@ -3,6 +3,9 @@ import AddIcon from "@mui/icons-material/Add";
 import styled from "styled-components";
 import Category from "../Category";
 import { CategoryInt } from "../../types/types";
+import { Route, Routes  } from "react-router-dom";
+import Addictions from "./Addictions";
+import { NavItem } from "../Navigation";
 
 interface HomeProps {
   categories: CategoryInt[];
@@ -19,46 +22,17 @@ const FlexWrapper = styled.div`
   justify-content: flex-end;
 `;
 
-const CategoryWrapper = styled.div`
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: space-between;
-  max-height: 300px;
-  overflow: auto;
-`;
-
 function Home({ categories }: HomeProps) {
-  const [showCategories, setShowCategories] = useState(false);
-  const [activeCategory, setActiveCategory] = useState(categories[0]?.name);
-
-  const toggleCategories = () => {
-    setShowCategories(!showCategories);
-  };
-
-  const handleActiveCategory = (name: string): void => {
-    setActiveCategory(name);
-    console.log(name);
-  };
 
   return (
     <div>
       <FlexWrapper>
-        <AddCategory onClick={toggleCategories} />
+        <NavItem to="/addictions" label={<AddCategory />} />
       </FlexWrapper>
-      {showCategories ? (
-        <>
-          <div>{activeCategory}</div>
-          <h2>Select category({`${categories.length}`})</h2>
-          <CategoryWrapper>
-            {categories?.map((category) => (
-              <Category category={category} active={activeCategory === category.name} onClick={() => handleActiveCategory(category.name)} />
-            ))}
-          </CategoryWrapper>
-        </>
-      ) : (
-        ""
-      )}
-      <h1>Home</h1>
+        <h1>Home page</h1>
+      <Routes>
+        <Route path="/addictions" element={<Addictions />} />
+      </Routes>
     </div>
   );
 }
