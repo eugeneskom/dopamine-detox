@@ -7,32 +7,40 @@ import Navigation from "./components/Navigation";
 import styled from "@emotion/styled";
 import categories from "./libs/categories";
 import Addictions from "./components/pages/Addictions";
+import { useState } from "react";
 
 const Container = styled.div`
-  padding-top: 50px;
+  padding: 50px;
   max-width: 300px;
   width: 100%;
   height: 70vh;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  /* justify-content: space-between; */
   background-color: #fff;
+  column-gap: 20px;
 `;
 
 function App() {
+  const [steps, setSteps] = useState(0);
+
+  const nextStep = () => {
+    setSteps((prevStep) => prevStep++);
+  };
+
+  console.log(steps)
   return (
     <div className="App">
       <BrowserRouter>
         <Container>
           <Routes>
-            <Route path="/" element={<Home categories={categories} />} />
+            <Route path="/" element={<Home categories={categories} nextStep={nextStep}/>} />
             <Route path="/charts" element={<Charts />} />
             <Route path="/settings" element={<Settings />} />
-            <Route path="/addictions" element={<Addictions />} />
+            <Route path="/addictions" element={<Addictions nextStep={nextStep} />} />
           </Routes>
           <Navigation />
-          
         </Container>
       </BrowserRouter>
     </div>

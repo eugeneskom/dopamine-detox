@@ -4,8 +4,11 @@ import styled from 'styled-components';
 import Category from '../Category';
 import { useNavigate } from "react-router-dom";
 
+interface AddictionsProps{
+  nextStep: () => void
+}
 
-function Addictions() {
+function Addictions({nextStep}:AddictionsProps) {
 
   const [activeCategory, setActiveCategory] = useState(categories[0]?.name);
   const navigate = useNavigate()
@@ -38,6 +41,8 @@ const handleActiveCategory = (name: string): void => {
         <Category category={category} active={activeCategory === category.name} onClick={() => handleActiveCategory(category.name)} />
       ))}
     </CategoryWrapper>
+
+    <button onClick={nextStep}>Next step</button>
   </>
   )
 }
