@@ -9,7 +9,6 @@ import { NavItem } from "../Navigation";
 
 interface HomeProps {
   categories: CategoryInt[];
-  nextStep: () => void
 }
 
 const AddCategory = styled(AddIcon)`
@@ -23,7 +22,7 @@ const FlexWrapper = styled.div`
   justify-content: flex-end;
 `;
 
-function Home({ categories,nextStep }: HomeProps) {
+function Home({ categories }: HomeProps) {
 
 
   return (
@@ -33,7 +32,7 @@ function Home({ categories,nextStep }: HomeProps) {
       </FlexWrapper>
       <h1>Home page</h1>
       <Routes>
-        <Route path="/addictions" element={<Addictions  nextStep={nextStep}/>} />
+        <Route path="/addictions" element={<Addictions />} />
       </Routes>
     </div>
   );

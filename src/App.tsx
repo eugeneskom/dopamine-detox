@@ -23,22 +23,21 @@ const Container = styled.div`
 `;
 
 function App() {
-  const [steps, setSteps] = useState(0);
+  // const [steps, setSteps] = useState(0);
 
-  const nextStep = () => {
-    setSteps((prevStep) => prevStep++);
-  };
-
-  console.log(steps)
+  // const nextStep = () => {
+  //   setSteps((prevStep) => prevStep++);
+  // };
+ 
   return (
     <div className="App">
       <BrowserRouter>
         <Container>
           <Routes>
-            <Route path="/" element={<Home categories={categories} nextStep={nextStep}/>} />
+            <Route path="/" element={<Home categories={categories}/>} />
             <Route path="/charts" element={<Charts />} />
             <Route path="/settings" element={<Settings />} />
-            <Route path="/addictions" element={<Addictions nextStep={nextStep} />} />
+            <Route path="/addictions" element={<Addictions  />} />
           </Routes>
           <Navigation />
         </Container>
