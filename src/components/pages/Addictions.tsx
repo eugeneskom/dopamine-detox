@@ -1,9 +1,13 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import categories from "../../libs/categories";
 import styled from "styled-components";
 import Category from "../Category";
 import { useNavigate } from "react-router-dom";
 import Circle from "../Circle";
+import DateTimePicker from "react-datetime-picker";
+import "react-datetime-picker/dist/DateTimePicker.css";
+import "react-calendar/dist/Calendar.css";
+import "react-clock/dist/Clock.css";
 
 interface AddictionsProps {
   nextStep: () => void;
@@ -32,6 +36,17 @@ function Addictions() {
     { id: 2, active: false },
   ]);
   const [stepsCount, setStepsCount] = useState(0);
+  const [selectedDate, setSelectedDate] = useState<Date>(() => {
+    const now = new Date();
+    now.setDate(now.getDate() + 1); // Add one day
+    return now;
+  });
+
+  const handleDateChange = (date: Date | null) => {
+    if (date) {
+      setSelectedDate(date);
+    }
+  };
 
   const nextStep = () => {
     console.log("nextStep");
@@ -55,6 +70,13 @@ function Addictions() {
     console.log(name);
   };
 
+  useEffect(() => {
+    if (stepsCount === 1) {
+      // setDateTime("10/02/10");
+    }
+    return () => {};
+  }, [stepsCount]);
+
   return (
     <>
       <button onClick={handleGoBack}>Go back</button>
@@ -63,13 +85,36 @@ function Addictions() {
           <Circle key={circle.id} active={circle.id <= stepsCount} />
         ))}
       </Pagination>
-      <div>{activeCategory}</div>
-      <h2>Select category({`${categories.length}`})</h2>
-      <CategoryWrapper>
-        {categories?.map((category) => (
-          <Category category={category} active={activeCategory === category.name} onClick={() => handleActiveCategory(category.name)} />
-        ))}
-      </CategoryWrapper>
+      {stepsCount === 0 ? (
+        <>
+          <div>{activeCategory}</div>
+          <h2>Select category({`${categories.length}`})</h2>
+          <CategoryWrapper>
+            {categories?.map((category) => (
+              <Category
+                key={category.id}
+                category={category}
+                active={activeCategory === category.name}
+                onClick={() => handleActiveCategory(category.name)}
+              />
+            ))}
+          </CategoryWrapper>
+        </>
+      ) : (
+        ""
+      )}
+
+      {stepsCount === 1 && (
+        <>
+          <h2>Finish Date</h2>
+          <DateTimePicker value={selectedDate} onChange={handleDateChange} />
+          'test'
+        </>
+      )}
+
+{stepsCount === 2 && (
+  <h2>Are ou ready?</h2>
+)}
 
       <button onClick={nextStep}>Next step</button>
     </>
