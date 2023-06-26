@@ -27,6 +27,8 @@ const Pagination = styled.div`
   justify-content: center;
 `;
 
+let initialDateTime = new Date();
+
 function Addictions() {
   const [activeCategory, setActiveCategory] = useState(categories[0]?.name);
   const navigate = useNavigate();
@@ -38,12 +40,20 @@ function Addictions() {
   const [stepsCount, setStepsCount] = useState(0);
   const [selectedDate, setSelectedDate] = useState<Date>(() => {
     const now = new Date();
+    initialDateTime = now;
     now.setDate(now.getDate() + 1); // Add one day
     return now;
   });
+  const [timeSpan, setTimeSpan] = useState<number>(0)
 
   const handleDateChange = (date: Date | null) => {
     if (date) {
+      console.log("handleDateChange", date, initialDateTime);
+      console.log('chosen date: ',date.getTime(), 'initial date: ', initialDateTime.getTime())
+      const timeDiff = Math.abs(date.getTime() - initialDateTime.getTime());
+      const daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
+      console.log('daysDiff',daysDiff, )
+      setTimeSpan(daysDiff)
       setSelectedDate(date);
     }
   };
@@ -91,12 +101,7 @@ function Addictions() {
           <h2>Select category({`${categories.length}`})</h2>
           <CategoryWrapper>
             {categories?.map((category) => (
-              <Category
-                key={category.id}
-                category={category}
-                active={activeCategory === category.name}
-                onClick={() => handleActiveCategory(category.name)}
-              />
+              <Category key={category.id} category={category} active={activeCategory === category.name} onClick={() => handleActiveCategory(category.name)} />
             ))}
           </CategoryWrapper>
         </>
@@ -112,9 +117,15 @@ function Addictions() {
         </>
       )}
 
-{stepsCount === 2 && (
-  <h2>Are ou ready?</h2>
-)}
+      {stepsCount === 2 ? (
+        <>
+        <h2>Are ou ready?</h2>
+        <p>{timeSpan} day{timeSpan > 1 ? "s" : ""}</p>
+        <p>No {activeCategory}</p>
+        </>
+      ) : ""
+      
+      }
 
       <button onClick={nextStep}>Next step</button>
     </>
