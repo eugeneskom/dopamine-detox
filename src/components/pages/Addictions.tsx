@@ -8,6 +8,7 @@ import DateTimePicker from "react-datetime-picker";
 import "react-datetime-picker/dist/DateTimePicker.css";
 import "react-calendar/dist/Calendar.css";
 import "react-clock/dist/Clock.css";
+import NavigateBeforeIcon from "@mui/icons-material/NavigateBefore";
 
 interface AddictionsProps {
   nextStep: () => void;
@@ -27,6 +28,13 @@ const Pagination = styled.div`
   justify-content: center;
 `;
 
+const StyledNavigateBeforeIcon = styled(NavigateBeforeIcon)`
+  &.back-arrow {
+    cursor: pointer;
+    font-size: 40px;
+  }
+`;
+
 let initialDateTime = new Date();
 
 function Addictions() {
@@ -40,21 +48,23 @@ function Addictions() {
   const [stepsCount, setStepsCount] = useState(0);
   const [selectedDate, setSelectedDate] = useState<Date>(() => {
     const now = new Date();
-    initialDateTime = now;
+    console.log("initialDateTime", initialDateTime.getTime());
     now.setDate(now.getDate() + 1); // Add one day
     return now;
   });
-  const [timeSpan, setTimeSpan] = useState<number>(0)
+  const [timeSpan, setTimeSpan] = useState<number>(0);
+  const [dateSelected, setDateSelected] = useState(false);
 
   const handleDateChange = (date: Date | null) => {
     if (date) {
-      console.log("handleDateChange", date, initialDateTime);
-      console.log('chosen date: ',date.getTime(), 'initial date: ', initialDateTime.getTime())
+      console.log("handleDateChange", date, initialDateTime, selectedDate);
+      console.log("chosen date: ", date.getTime(), "initial date: ", initialDateTime.getTime());
       const timeDiff = Math.abs(date.getTime() - initialDateTime.getTime());
       const daysDiff = Math.ceil(timeDiff / (1000 * 60 * 60 * 24));
-      console.log('daysDiff',daysDiff, )
-      setTimeSpan(daysDiff)
+      console.log("daysDiff", daysDiff);
+      setTimeSpan(daysDiff);
       setSelectedDate(date);
+      setDateSelected(true);
     }
   };
 
@@ -89,7 +99,8 @@ function Addictions() {
 
   return (
     <>
-      <button onClick={handleGoBack}>Go back</button>
+      <StyledNavigateBeforeIcon className="back-arrow" onClick={handleGoBack} />
+
       <Pagination>
         {steps?.map((circle) => (
           <Circle key={circle.id} active={circle.id <= stepsCount} />
@@ -113,19 +124,18 @@ function Addictions() {
         <>
           <h2>Finish Date</h2>
           <DateTimePicker value={selectedDate} onChange={handleDateChange} />
-          'test'
         </>
       )}
 
       {stepsCount === 2 ? (
         <>
-        <h2>Are ou ready?</h2>
-        <p>{timeSpan} day{timeSpan > 1 ? "s" : ""}</p>
-        <p>No {activeCategory}</p>
+          <h2>Are ou ready?</h2>
+          <p>{dateSelected ? `${timeSpan} days` : "1 day"}</p>
+          <p>No {activeCategory}</p>
         </>
-      ) : ""
-      
-      }
+      ) : (
+        ""
+      )}
 
       <button onClick={nextStep}>Next step</button>
     </>
